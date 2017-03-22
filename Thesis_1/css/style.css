@@ -1,0 +1,49 @@
+#introVideo {
+	z-index: -1;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#rightHand {
+	left: 3000px;
+	bottom: 0px;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	animation: moveHandRight 3s;
+	animation-delay:4s;
+}
+
+#leftHand {
+	left: -3000px;
+	bottom: 0px;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	animation: moveHandLeft 3s;
+	animation-delay:4s;
+}
+
+
+@keyframes moveHandRight {
+	0% {
+			left: 3000px; 
+	}
+	100% {
+			left: 500px;
+		}
+	}
+
+
+@keyframes moveHandLeft {
+	0% {
+			left: -3000px; 
+	}
+	100% {
+			left: 300px;
+		}
+	}
+	
+	
+}
