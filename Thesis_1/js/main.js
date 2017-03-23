@@ -11,7 +11,7 @@ function init() {
 		var leftBrickVideo = document.getElementById("leftBrickVideo");
 		var rightBrickVideo = document.getElementById("rightBrickVideo");
 
-		var button1 = document.getElementById("play");
+		
 
 		leftBrickVideo.onended = function(){
 			leftBrickVideo.currentTime = 0;
@@ -35,9 +35,13 @@ function init() {
 			
 		})
 
+		var button1 = document.getElementById("play");
+
 		button1.addEventListener("click", function() {
 			introVideo.style.display= "none";
 			scene2.style.display= "block";
+			scene3.style.display ="none";
+			scene4.style.display = "none";
 			playLeft1.style.display = "none";
 			playRight1.style.display = "none";
 
@@ -48,6 +52,32 @@ function init() {
 		button2.addEventListener("click", function() {
 			introVideo.style.display = "none";
 			scene2.style.display = "none";
+			scene3.style.display ="block";
+			scene4.style.display = "none";
+			playLeft1.style.display = "none";
+			playRight1.style.display = "none";
+
+		})
+
+		var button3 = document.getElementById("next2");
+
+		button3.addEventListener("click", function() {
+			introVideo.style.display = "none";
+			scene2.style.display = "none";
+			scene3.style.display ="none";
+			scene4.style.display = "block";
+			playLeft1.style.display = "none";
+			playRight1.style.display = "none";
+
+		})
+
+		var button4 = document.getElementById("next3");
+
+		button4.addEventListener("click", function() {
+			introVideo.style.display = "none";
+			scene2.style.display = "none";
+			scene3.style.display ="none";
+			scene4.style.display = "none";
 			playLeft1.style.display = "block";
 			playRight1.style.display = "block";
 
@@ -66,14 +96,23 @@ function init() {
 		// 		}
 		// 	}
 		// }
-		// setInterval(function(){
-		// 	console.log(leftBrickVideo.currentTime);
-		// 	if(leftBrickVideo.currentTime > 1.2){
-		// 		leftBrickVideo.pause();
-		// 		leftBrickVideo.currentTime = 0;
-		// 	}
-		// }, 10);
+		setInterval(function(){
+			console.log(leftBrickVideo.currentTime);
+			console.log(rightBrickVideo.currentTime);
+			if(leftBrickVideo.currentTime > 1.2){
+				leftBrickVideo.pause();
+				leftBrickVideo.currentTime = 0;
+			}
+		}, 10);
 
+		setInterval(function(){
+			
+			console.log(rightBrickVideo.currentTime);
+			if(leftBrickVideo.currentTime > 1.0){
+				rightBrickVideo.pause();
+				rightBrickVideo.currentTime = 0;
+			}
+		}, 10);
 
 		// function playVideoRight(videoURL) {
 		// 	videos.play();

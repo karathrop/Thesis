@@ -48,7 +48,7 @@ var io = require('socket.io').listen(httpServer);
 
 io.sockets.on('connection', 
 	function (socket) {	
-		console.log("We have a new client: " + socket.id);(
+		console.log("We have a new client: " + socket.id);
 				// socket.on('login',function(data){
 				// 	if(data == 'a'){
 				// 		socketIdA = socket.id;
