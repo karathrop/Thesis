@@ -39,14 +39,14 @@ function handleIt(req, res) {
 
 var httpServer = http.createServer(handleIt);
 
-httpServer.listen(8873);  
-console.log('Server listening on port 8873');
+httpServer.listen(8874);  
+console.log('Server listening on port 8874');
 
 var io = require('socket.io').listen(httpServer);
 
 // var socketIdA, socketIdB;
 
-io.sockets.on('connection', 
+io.on('connection', 
 	function (socket) {	
 		console.log("We have a new client: " + socket.id);
 				// socket.on('login',function(data){

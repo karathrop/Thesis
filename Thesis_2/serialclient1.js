@@ -16,7 +16,7 @@ var buffer = [];
 serialPort.on("open", function () {
   console.log('open');
 
-  var socket = require('socket.io-client')('http://kcl389.itp.io:8873');
+  var socket = require('socket.io-client')('http://kcl389.itp.io:8874');
   socket.on('connect', function(){
   	 console.log("Socket COnnected");
 

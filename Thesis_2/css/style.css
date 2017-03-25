@@ -25,6 +25,26 @@
 	animation-delay:4s;
 }
 
+/*#playRight1 {
+	height: 50%;
+	width:50%;
+}*/
+
+#rightBrickImage {
+	height: auto;
+	width: 699px;
+	top: 0px;
+	height: auto;
+}
+
+
+#rightBrickVideo {
+	position: absolute;
+	top: 0px;
+	width: 699px;
+	height: auto;
+}
+
 
 @keyframes moveHandRight {
 	0% {
