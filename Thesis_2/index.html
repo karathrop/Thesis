@@ -81,18 +81,18 @@
     <div id = "scene5" style="display:none">
         <div class="row no gutter">
           <div class="col-md-6" id= "leftScreen" style="padding: 0px;">
-              
-                  <!-- play -->
-                 <div id="playLeft1" style="display:none">
-                  <video id="leftBrickVideo" autostart="false" width='100%' height='100%' >
+                <div id="leftBrickImage" style="padding: 0px";>
+                    <img src="assets/brickLeft.png">
+                </div>
+                                
+                  <video id="leftBrickVideo" style="display:none" autostart="false" width='100%' height='100%' >
                     <source src="assets/blueBricks1.mp4" type="video/mp4" /> Y
                   </video>
                   <button id= "nextVideo1">
                     Knock it down
                   </button>    
-                </div>
-          </div>
-                
+            </div>
+          
           <div class = "col-md-6" id="rightScreen" style="padding: 0px";>
                  
                     <div id = "rightBrickImage" style="padding: 0px;">
@@ -108,8 +108,8 @@
                     </button>       
                  
       
+          </div>
         </div>
-      </div>
     </div>
 
 	<script src="/socket.io/socket.io.js"></script>

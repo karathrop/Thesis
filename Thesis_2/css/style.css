@@ -45,6 +45,20 @@
 	height: auto;
 }
 
+#leftBrickImage {
+	height: auto;
+	width: 699px;
+	top: 0px;
+	left: 0;
+}
+
+#leftBrickVideo {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 699px;
+	height: auto;
+}
 
 @keyframes moveHandRight {
 	0% {

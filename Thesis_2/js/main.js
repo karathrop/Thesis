@@ -81,22 +81,34 @@ $(document).ready(function(){
 					
 				}
 
-				// else if (data == 10) {
-				// 	console.log("video plays");
-				// 	rightScreen.style.display ="block";
-					
-				// }
+		});
 
-				// else if (data == 15) {
-				// 	console.log("video plays");
-				// 	rightScreen.style.display ="block";
+		var leftVideo = document.getElementById('leftBrickVideo');
 
-				// }  else if (data == 20) {
-				// 	console.log("video plays");
-				// 	rightScreen.style.display ="block";
+		socket.on('sensor left', function(data) {
+			console.log("HELLO");
+				console.log(data);
+
+				var leftDiv = document.getElementById('leftscreen');
+		
+
+				if (data == 0) {
+					console.log("video doesn't play");
+					leftBrickVideo.pause();
+					leftBrickVideo.style.display="none";
+					leftBrickVideo.currentTime = 0;
+					//rightscreen= document.body.style.backgroundColor = "green";
+					// rightscreen= rightDiv.style.backgroundColor = "#261E3B";
+				}
+
+				else if (data > 10) {
+					console.log("video plays");
+					leftBrickVideo.play();
+					leftBrickVideo.style.display="block";
+
 					
-				
-				// }
+				}
+
 		});
 
 
