@@ -34,7 +34,7 @@
 	height: auto;
 	width: 699px;
 	top: 0px;
-	height: auto;
+	height: 100%;
 }
 
 
@@ -42,11 +42,12 @@
 	position: absolute;
 	top: 0px;
 	width: 699px;
-	height: auto;
+	height: 100%;
+	padding-top: 0px;
 }
 
 #leftBrickImage {
-	height: auto;
+	height: 100%;
 	width: 699px;
 	top: 0px;
 	left: 0;
@@ -57,7 +58,8 @@
 	top: 0px;
 	left: 0;
 	width: 699px;
-	height: auto;
+	height: 100%;
+	padding-top: 0px;
 }
 
 @keyframes moveHandRight {

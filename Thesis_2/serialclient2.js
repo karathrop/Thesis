@@ -23,7 +23,7 @@ serialPort.on("open", function () {
 		serialPort.on('data', function(data) {
 	  	
 	    console.log('data received: ' + data);
-	    socket.emit('sensor left',data.toString());
+	    socket.emit('left',data.toString());
 	    //socket.emit('sensor2',data.toString());
 	  });
   });

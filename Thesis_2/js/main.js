@@ -83,33 +83,33 @@ $(document).ready(function(){
 
 		});
 
-		var leftVideo = document.getElementById('leftBrickVideo');
+		// var leftVideo = document.getElementById('leftBrickVideo');
 
-		socket.on('sensor left', function(data) {
-			console.log("HELLO");
-				console.log(data);
+		// socket.on('sensor', function(data) {
+		// 	console.log("HELLO");
+		// 		console.log(data);
 
-				var leftDiv = document.getElementById('leftscreen');
+		// 		var leftDiv = document.getElementById('leftscreen');
 		
 
-				if (data == 0) {
-					console.log("video doesn't play");
-					leftBrickVideo.pause();
-					leftBrickVideo.style.display="none";
-					leftBrickVideo.currentTime = 0;
-					//rightscreen= document.body.style.backgroundColor = "green";
-					// rightscreen= rightDiv.style.backgroundColor = "#261E3B";
-				}
+		// 		if (data == 0) {
+		// 			console.log("video doesn't play");
+		// 			leftBrickVideo.pause();
+		// 			leftBrickVideo.style.display="none";
+		// 			leftBrickVideo.currentTime = 0;
+		// 			//rightscreen= document.body.style.backgroundColor = "green";
+		// 			// rightscreen= rightDiv.style.backgroundColor = "#261E3B";
+		// 		}
 
-				else if (data > 10) {
-					console.log("video plays");
-					leftBrickVideo.play();
-					leftBrickVideo.style.display="block";
+		// 		else if (data > 10) {
+		// 			console.log("video plays");
+		// 			leftBrickVideo.play();
+		// 			leftBrickVideo.style.display="block";
 
 					
-				}
+		// 		}
 
-		});
+		// });
 
 
 		var breakwallRight = document.getElementById("breakwallRight");
@@ -124,26 +124,32 @@ $(document).ready(function(){
 		
 
 		leftBrickVideo.onended = function(){
-			leftBrickVideo.currentTime = 0;
+			// leftBrickVideo.currentTime = 0;
+			leftBrickImage.style.display="block";
+			leftBrickVideo.style.display="none";
+			console.log("video ends")
 		}
 
-		rightBrickVideo.onended = function() {
-			rightBrickVideo.currentTime = 0;
-		}
+		// rightBrickVideo.onended = function() {
+		// 	rightBrickVideo.currentTime = 0;
+		// }
 
-		// nextVideo1.addEventListener("click", function() {
-		// 	if(!leftBrickVideo.isPlaying){
-		// 		leftBrickVideo.play();
-		// 	}
+		nextVideo1.addEventListener("click", function() {
+			console.log("clicked")
+			leftBrickVideo.style.display="block";
+			if(!leftBrickVideo.isPlaying){
+			leftBrickVideo.play();
+			}
 			
-		// })
+		})
+		
 
-		// nextVideo2.addEventListener("click", function() {
-		// if(!rightBrickVideo.isPlaying){
-		// 	rightBrickVideo.play();
-		// 	}
+		nextVideo2.addEventListener("click", function() {
+		if(!rightBrickVideo.isPlaying){
+			rightBrickVideo.play();
+			}
 			
-		// })
+		})
 
 		//Boolean for state
 		// var isBreaking = true;

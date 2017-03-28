@@ -56,7 +56,15 @@ io.on('connection',
 				// 		socketIdB = socket.id;
 				// 	}
 
-				// });
+		// 		// });
+		// socket.on('left', function(data) {
+		// 	console.log(data);
+		// 	// var dataToSend = {
+		// 	// 	'id':socket.id,
+		// 	// 	'data':data
+		// 	// }
+		// 	io.sockets.emit("left", data);
+		// });
 	
 		socket.on('sensor', function(data) {
 			console.log(data);
