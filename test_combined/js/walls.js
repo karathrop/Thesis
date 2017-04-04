@@ -2,6 +2,8 @@ if ( ! Detector.webgl ) {
 		    Detector.addGetWebGLMessage();
 		    document.getElementById( 'container' ).innerHTML = "";
 		}
+
+		console.log('loading walls.js');
 		// - Global variables -
 		// Graphics variables
 		var container,container_player2, stats;

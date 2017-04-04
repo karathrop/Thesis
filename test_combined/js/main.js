@@ -2,7 +2,7 @@
 $(document).ready(function(){
 		// var socket = io.connect('http://kcl389.itp.io:8874');
 
-
+		var scene2 = document.getElementById("scene2");
 	
 
 		var button1 = document.getElementById("play");
