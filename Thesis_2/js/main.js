@@ -73,7 +73,7 @@ $(document).ready(function(){
 					// rightscreen= rightDiv.style.backgroundColor = "#261E3B";
 				}
 
-				else if (data > 10) {
+				else if (data > 15) {
 					console.log("video plays");
 					rightBrickVideo.play();
 					rightBrickVideo.style.display="block";

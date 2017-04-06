@@ -30,28 +30,28 @@
 	width:50%;
 }*/
 
-#rightBrickImage {
+/*#rightBrickImage {
 	height: auto;
 	width: 699px;
 	top: 0px;
 	height: 100%;
-}
+}*/
 
 
 #rightBrickVideo {
 	position: absolute;
 	top: 0px;
 	width: 699px;
-	height: 100%;
-	padding-top: 0px;
+	height: 1000px;
+	padding-top: -200px;
 }
 
-#leftBrickImage {
+/*#leftBrickImage {
 	height: 100%;
 	width: 699px;
 	top: 0px;
 	left: 0;
-}
+}*/
 
 #leftBrickVideo {
 	position: absolute;

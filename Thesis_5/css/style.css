@@ -1,0 +1,114 @@
+#introVideo {
+	z-index: -1;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+}
+
+#rightHand {
+	left: 3000px;
+	bottom: 0px;
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	animation: moveHandRight 3s;
+	animation-delay:4s;
+}
+
+#leftHand {
+	left: -3000px;
+	bottom: 0px;
+	width: 400px;
+	height: 400px;
+	position: absolute;
+	animation: moveHandLeft 3s;
+	animation-delay:4s;
+}
+
+/*#playRight1 {
+	height: 50%;
+	width:50%;
+}*/
+
+/*#rightBrickImage {
+	height: auto;
+	width: 699px;
+	top: 0px;
+	height: 100%;
+}*/
+
+
+#rightBrickVideo {
+	position: absolute;
+	top: 0px;
+	width: 699px;
+	height: 1000px;
+	padding-top: -200px;
+}
+
+/*#leftBrickImage {
+	height: 100%;
+	width: 699px;
+	top: 0px;
+	left: 0;
+}*/
+
+#leftBrickVideo {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 699px;
+	height: 100%;
+	padding-top: 0px;
+}
+
+@keyframes moveHandRight {
+	0% {
+			left: 3000px; 
+	}
+	100% {
+			left: 500px;
+		}
+	}
+
+
+@keyframes moveHandLeft {
+	0% {
+			left: -3000px; 
+	}
+	100% {
+			left: 300px;
+		}
+	}
+	
+	
+}
+
+
+body {
+                color: #61443e;
+                font-family:Monospace;
+                font-size:13px;
+                text-align:center;
+                background-color: #bfd1e5;
+                margin: 0px;
+                overflow: hidden;
+            }
+            #info {
+                position: absolute;
+                top: 0px; width: 100%;
+                padding: 5px;
+            }
+            a {
+                color: #a06851;
+            }
+            #player1{
+            	position: absolute;
+            	top:0;
+            	left: 0;
+            }
+            #player2{
+            	position: absolute;
+            	top:0;
+            	left: 50%;
+            }

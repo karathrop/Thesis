@@ -80,12 +80,12 @@
       <!-- play -->
     <div id = "scene5" style="display:none">
         <div class="row no gutter">
-          <div class="col-md-6" id= "leftScreen" style="padding: 0px;">
+          <div class="col-md-6" id= "leftScreen" style="padding:0px; height:100vh;">
                 <div id="leftBrickImage" style="padding: 0px";>
                     <img src="assets/brickLeft.png">
                 </div>
                                 
-                  <video id="leftBrickVideo"  style="display:none; padding:0px;" autostart="true" width='100%' height='100%'; >
+                  <video id="leftBrickVideo"  style="display:none; padding:0px; height:100vh;" autostart="true" width='100%' height='100%'; >
                     <source src="assets/blueBricks1.mp4" type="video/mp4" /> Y
                   </video>
                   <button id= "nextVideo1">
@@ -93,15 +93,19 @@
                   </button>    
             </div>
           
-          <div class = "col-md-6" id="rightScreen" style="padding: 0px";>
+          <div class = "col-md-6" id="rightScreen" style="padding:0px; height:100vh;">
                  
                     <div id = "rightBrickImage" style="padding: 0px;">
                         <img src = "assets/brickRight.png">
                     </div>
 
-                    <video id="rightBrickVideo" style="display:none; padding:0px;"  autostart="false" width='100%' height='100%';  >
+                    <video id="rightBrickVideo" style="display:none; padding:0px; height:100vh;" autostart="false" width='100%' height="100%";  >
                       <source src="assets/greenBricks1.mp4" type="video/mp4" /> Your browser does not support the video tag.
                     </video>
+
+                   <!--  <video id="rightBrickSpecial" style="display:none; padding:0px; height:100vh;" autostart="false" width='100%' height="100%";  >
+                      <source src="assets/greenBricks1.mp4" type="video/mp4" /> Your browser does not support the video tag.
+                    </video> -->
 
                     <button id= "nextVideo2">
                       Knock it again
