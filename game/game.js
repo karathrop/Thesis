@@ -126,13 +126,11 @@ function createObjects() {
     ground.castShadow = true;
     ground.receiveShadow = true;
     createWall(pos, quat, 1.4, 6, 8, createMaterial(), -8);
-   createWall(pos, quat, 1.4, 6, 8, createMaterial(), pos.z-0.3);
-   camera.zoom = 130;
+    createWall(pos, quat, 1.4, 6, 8, createMaterial(), pos.z-0.3);
 }
 
 
 function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
-    // Wall
     var brickMass = objectMass;
     var brickLength = 1.2;
     var brickDepth = 0.6;
@@ -140,7 +138,7 @@ function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
     var numBricksLength = cols;
     var numBricksHeight = rows;
     var z0 = newZ;
-    console.log("x",0, "y", brickHeight * 0.5, "z", z0);
+
     pos.set( 0, 0, z0 );
     quat.set( 0, 0, 0, 1 );
     for ( var j = 0; j < numBricksHeight; j ++ ) {
@@ -173,13 +171,9 @@ function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
             else {
                 pos.z += brickLength;
             }
-            console.log("brick x", pos.x, "y", pos.y, "z", pos.z);
         }
         pos.y += brickHeight;
-        
-
     }
-
 }
 
 function createRandomColor() {
