@@ -297,7 +297,8 @@ function input(){
 
     var mouseCoords = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
-    var ballMaterial = new THREE.MeshPhongMaterial( { color: 0x202020 } );
+//    var ballMaterial = new THREE.MeshPhongMaterial( { color: 0x202020 } );
+    var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.05, transparent: true, depthWrite: false});
 
     window.addEventListener( 'mousedown', function( event ) {
         mouseCoords.set(
@@ -309,8 +310,8 @@ function input(){
         var ballMass = 0.2;
         var ballRadius = 0.4;
         var ball = new THREE.Mesh( new THREE.SphereGeometry( ballRadius, 14, 10 ), ballMaterial );
-        ball.castShadow = true;
-        ball.receiveShadow = true;
+        ball.castShadow = false;
+        ball.receiveShadow = false;
         var ballShape = new Ammo.btSphereShape( ballRadius );
         ballShape.setMargin( margin );
         pos.copy( raycaster.ray.direction );
