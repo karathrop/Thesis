@@ -351,8 +351,8 @@ function getRandomArbitrary(min, max) {
 
 function getRandomPositionBasedOnWall(wall){
     var position = new THREE.Vector3();
-    var firstBrick = wall[wall.length-1].position;
-    var lastBrick = wall[0].position;
+    var firstBrick = wall[wall.length-1].brick.position;
+    var lastBrick = wall[0].brick.position;
     position.set(getRandomArbitrary(lastBrick.x, firstBrick.x), 
         getRandomArbitrary(lastBrick.y, firstBrick.y), 
         getRandomArbitrary(lastBrick.z, firstBrick.z))
@@ -365,12 +365,12 @@ function input(){
 
     document.getElementById("player1").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall1);
-        ThrowBall(0.3, position);
+        ThrowBall(0.6, position);
 
     });
     document.getElementById("player2").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall2);
-        ThrowBall(0.3, position);
+        ThrowBall(0.6, position);
 
     });
     // window.addEventListener( 'mousedown', function( event ) {
