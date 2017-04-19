@@ -31,16 +31,16 @@ var wall2 = [];
 var ground;
 
 var masses = [
-    {brickMass:1.4, ballMass:1.2, color: 0xFFFFFF},
-    {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9},
-    {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6},
-    {brickMass:3.5, ballMass:2.3, color: 0xC3C3C3},
-    {brickMass:4.5, ballMass:3.7, color: 0xFF0000},
-    {brickMass:4.5, ballMass:4,   color: 0x00FF00},
-    {brickMass:5.5, ballMass:4.6, color: 0x0000FF},
-    {brickMass:6.5, ballMass:5.6, color: 0xF2C0E0},
-    {brickMass:7.5, ballMass:6.7, color: 0xFFCC00},
-    {brickMass:8.5, ballMass:7.5, color: 0xC3F2D4}
+    {brickMass:1.4, ballMass:1.2, color: 0xFFFFFF, label:"Berlin Wall, Germany"},
+    {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9, label:"Sacsayhuamán, Peru"},
+    {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6, label:"Israeli West Bank barrier wall"},
+    {brickMass:3.5, ballMass:2.3, color: 0xC3C3C3, label:"Hadrian’s Wall, England"},
+    {brickMass:4.5, ballMass:3.7, color: 0xFF0000, label:"Ancient walls of Istanbul, Turkey"},
+    {brickMass:4.5, ballMass:4,   color: 0x00FF00, label:"KC Find all walls"},
+    {brickMass:5.5, ballMass:4.6, color: 0x0000FF, label:"Another Wall"},
+    {brickMass:6.5, ballMass:5.6, color: 0xF2C0E0, label:"more walls :( "},
+    {brickMass:7.5, ballMass:6.7, color: 0xFFCC00, label:"walls are bad"},
+    {brickMass:8.5, ballMass:7.5, color: 0xC3F2D4, label:"last wall"}
 ]
 
 var wall1IsBroken = false;
@@ -138,7 +138,8 @@ function createObjects() {
     ground.receiveShadow = true;
     
     wall1 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), -8);
-    wall2 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);    
+    wall2 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);   
+    document.getElementById("walllabel").innerHTML=masses[wallsBroken].label; 
 }
 
 function clearObjects(){
