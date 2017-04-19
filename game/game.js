@@ -35,7 +35,12 @@ var masses = [
     {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9},
     {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6},
     {brickMass:3.5, ballMass:2.3, color: 0xC3C3C3},
-    {brickMass:4.5, ballMass:3, color: 0xFF0000}
+    {brickMass:4.5, ballMass:3.7, color: 0xFF0000},
+    {brickMass:4.5, ballMass:4,   color: 0x00FF00},
+    {brickMass:5.5, ballMass:4.6, color: 0x0000FF},
+    {brickMass:6.5, ballMass:5.6, color: 0xF2C0E0},
+    {brickMass:7.5, ballMass:6.7, color: 0xFFCC00},
+    {brickMass:8.5, ballMass:7.5, color: 0xC3F2D4}
 ]
 
 var wall1IsBroken = false;
@@ -365,7 +370,7 @@ function ThrowBall(mass, targetPosition){
     var quat = new THREE.Quaternion();
     var mouseCoords = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
-    var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.5, transparent: true, depthWrite: false});
+    var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.0, transparent: true, depthWrite: false});
 
     mouseCoords.set(targetPosition.x,targetPosition.y);
     raycaster.setFromCamera( mouseCoords, camera );
@@ -393,17 +398,15 @@ function getRandomArbitrary(min, max) {
 
 function getRandomPositionBasedOnWall(wall){
     var position = new THREE.Vector3();
-    var firstBrick = wall[wall.length-1].brick.position;
-    var lastBrick = wall[0].brick.position;
+    var firstBrick = wall[wall.length-1].initialPosition;
+    var lastBrick = wall[0].initialPosition;
     position.set(getRandomArbitrary(lastBrick.x, firstBrick.x), 
         getRandomArbitrary(lastBrick.y, firstBrick.y), 
         getRandomArbitrary(lastBrick.z, firstBrick.z))
     return position;
 }
+
 function input(){
-    document.getElementById("nextPhase").addEventListener("click", function(){
-        createObjects();
-    });
 
     document.getElementById("player1").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall1);

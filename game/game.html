@@ -17,11 +17,13 @@
             }
 
             #player1{
+                height:35px;
                 position:absolute;
                 z-index:11;
                 top:10%; left:25%;
             }
             #player2{
+                height:35px;
                 top:10%; left:50%;
                 position:absolute;
                 z-index:10;
@@ -32,6 +34,9 @@
                 z-index:12;   
             }
             #countDown{
+                color:white;
+                font-size:30px;
+                font-weight:bold;
                 position: absolute;
                 z-index: 13;
                 left:90%;
@@ -42,7 +47,6 @@
     <body>
     <div id="countDown"></div>
     <div id="container"><br /><br /><br /><br /><br />Loading...</div>
-    <button id="nextPhase">Rebuild Wall</button>
     <button id="player1">player1 (punch the wall)</button>
     <button id="player2">player2 (punch the wall)</button>
 	<script  src="js/three.js" type=""></script>
