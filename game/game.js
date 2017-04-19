@@ -175,7 +175,9 @@ function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
             var brick = createParalellepiped( brickDepth, brickHeight, brickLengthCurrent, brickMassCurrent, pos, quat, colorMaterial);
             brick.castShadow = true;
             brick.receiveShadow = true;
-            bricks.push(brick);
+            initialPosition = new THREE.Vector3();
+            initialPosition.copy(brick.position);
+            bricks.push({brick: brick, damage: 0, initialPosition: initialPosition});
             if ( oddRow && ( i == 0 || i == nRow - 2 ) ) {
                 pos.z += 0.75 * brickLength;
             }
@@ -259,10 +261,11 @@ function animate() {
 }
 
 function render() {
-
     var deltaTime = clock.getDelta();
 
     updatePhysics( deltaTime );
+
+    updateDamage();
 
     controls.update( deltaTime );
 
@@ -270,6 +273,26 @@ function render() {
 
     time += deltaTime;
 
+}
+
+function updateDamage() {
+  updateWallDamage(wall1, function() { console.log("wall 1 is broken!"); });
+  updateWallDamage(wall2, function() { console.log("wall 2 is broken!"); });
+}
+
+function updateWallDamage(wall, cb) {
+  var totalWallDamage = 0;
+  for (var i = 0; i < wall.length; i++) {
+    var deltaX = Math.pow(Math.floor(wall[i].brick.position.x) - wall[i].initialPosition.x, 2)
+    var deltaY = Math.pow(Math.floor(wall[i].brick.position.y) - wall[i].initialPosition.y, 2)
+    var deltaZ = Math.pow(Math.floor(wall[i].brick.position.z) - wall[i].initialPosition.z, 2)
+    var delta = Math.sqrt(deltaX + deltaY + deltaZ);
+    wall[i].damage = delta < 10 ? delta : 10;
+    totalWallDamage += wall[i].damage;
+  }
+  if (totalWallDamage > 100) {
+    cb();
+  }
 }
 
 function updatePhysics( deltaTime ) {
@@ -332,8 +355,8 @@ function input(){
     });
 
     document.getElementById("player1").addEventListener("click", function(){
-        var z = getRandomArbitrary(wall1[wall1.length-1].position.z, wall1[0].position.z)
-        var y = getRandomArbitrary(wall1[wall1.length-1].position.y, wall1[0].position.y)
+        var z = getRandomArbitrary(wall1[wall1.length-1].brick.position.z, wall1[0].brick.position.z)
+        var y = getRandomArbitrary(wall1[wall1.length-1].brick.position.y, wall1[0].brick.position.y)
         var x = 0;
         console.log(z)
     });
