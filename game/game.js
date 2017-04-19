@@ -4,6 +4,8 @@ if ( ! Detector.webgl ) {
     console.log("webgl");
     document.getElementById( 'container' ).innerHTML = "";
 }
+var countdown = 30;
+var wallsBroken = 0;
 
 // Graphics variables
 var container, stats;
@@ -27,6 +29,17 @@ var time = 0;
 var wall1 = [];
 var wall2 = [];
 var ground;
+
+var masses = [
+    {brickMass:1.4, ballMass:1.2, color: 0xFFFFFF},
+    {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9},
+    {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6},
+    {brickMass:3.5, ballMass:2.3, color: 0xC3C3C3},
+    {brickMass:4.5, ballMass:3, color: 0xFF0000}
+]
+
+var wall1IsBroken = false;
+var wall2IsBroken = false;
 
 function init() {
     initGraphics();
@@ -115,12 +128,12 @@ function createObjects() {
     var quat = new THREE.Quaternion();
     pos.set( 0, - 0.5, 0 );
     quat.set( 0, 0, 0, 1 );
-    ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: 0xFFFFFF } ) );
+    ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: masses[wallsBroken].color } ) );
     ground.castShadow = true;
     ground.receiveShadow = true;
     
-    wall1 = createWall(pos, quat, 1.4, 6, 8, createMaterial(), -8);
-    wall2 = createWall(pos, quat, 1.4, 6, 8, createMaterial(), pos.z-0.3);    
+    wall1 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), -8);
+    wall2 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);    
 }
 
 function clearObjects(){
@@ -137,6 +150,9 @@ function clearObjects(){
         scene.remove(ground);
     }
     rigidBodies = [];
+
+    wall1IsBroken = false;
+    wall2IsBroken = false;
 }
 
 
@@ -254,11 +270,16 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat, vel, angVe
 }
 
 function animate() {
-    requestAnimationFrame( animate );
-    render();
-    stats.update();
+    if(countdown > 0){
+        requestAnimationFrame( animate );
+        render();
+        stats.update();
+    }else{
+        alert("Game Over: You broke " + wallsBroken + " walls!"); 
+    }
 
 }
+
 
 function render() {
     var deltaTime = clock.getDelta();
@@ -267,17 +288,37 @@ function render() {
 
     updateDamage();
 
+    checkIfShouldRebuild();
+
     controls.update( deltaTime );
 
     renderer.render( scene, camera );
 
     time += deltaTime;
 
+    countdown -=deltaTime;
+    document.getElementById("countDown").innerHTML=formatTime(countdown);
+}
+
+function formatTime(time){
+    if(time <= 9){
+        return "00:0"+Math.ceil(time);
+    }
+    return "00:"+ Math.ceil(time);
 }
 
 function updateDamage() {
-  updateWallDamage(wall1, function() { console.log("wall 1 is broken!"); });
-  updateWallDamage(wall2, function() { console.log("wall 2 is broken!"); });
+  updateWallDamage(wall1, function() { wall1IsBroken = true; });
+  updateWallDamage(wall2, function() { wall2IsBroken = true; });
+}
+
+function checkIfShouldRebuild() {
+  if (wall1IsBroken && wall2IsBroken) {
+    console.log("Both are broken!");
+    wallsBroken++;
+    createObjects();
+    console.log("Wall number:", wallsBroken+1);
+  }
 }
 
 function updateWallDamage(wall, cb) {
@@ -337,6 +378,7 @@ function ThrowBall(mass, targetPosition){
     var ballShape = new Ammo.btSphereShape( ballRadius );
     ballShape.setMargin( margin );
     pos.copy(raycaster.ray.direction);
+    pos.add(raycaster.ray.origin);
     pos.set(targetPosition.x, targetPosition.y, targetPosition.z);
     quat.set( 0, 0, 0, 1 );
     var ballBody = createRigidBody( ball, ballShape, ballMass, pos, quat );
@@ -365,12 +407,12 @@ function input(){
 
     document.getElementById("player1").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall1);
-        ThrowBall(0.6, position);
+        ThrowBall(masses[wallsBroken].ballMass, position);
 
     });
     document.getElementById("player2").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall2);
-        ThrowBall(0.6, position);
+        ThrowBall(masses[wallsBroken].ballMass, position);
 
     });
     // window.addEventListener( 'mousedown', function( event ) {
