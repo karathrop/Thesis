@@ -11,7 +11,6 @@ var camera, controls, scene, renderer;
 var textureLoader;
 var clock = new THREE.Clock();
 
-
 // Physics variables
 var gravityConstant = -9.8;
 var collisionConfiguration;
@@ -22,12 +21,12 @@ var softBodySolver;
 var physicsWorld;
 var rigidBodies = [];
 var margin = 0.05;
-var hinge;
-var rope;
 var transformAux1 = new Ammo.btTransform();
 
 var time = 0;
-var armMovement = 0;
+var wall1 = [];
+var wall2 = [];
+var ground;
 
 function init() {
     initGraphics();
@@ -36,12 +35,7 @@ function init() {
 }
 
 function initGraphics() {
-    //var radius = 500, theta = 0;
-    // var frustumSize = 1000;
     container = document.getElementById( 'container' );
-    // var aspect = window.innerWidth / window.innerHeight;
-    // camera = new THREE.OrthographicCamera( frustumSize * aspect / - 2, frustumSize * aspect / 2, frustumSize / 2, frustumSize / - 2, 1, 1000 );
-
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.2, 2000 );
     scene = new THREE.Scene();
 
@@ -115,22 +109,39 @@ function initPhysics() {
 }
 
 function createObjects() {
+    clearObjects();
 
     var pos = new THREE.Vector3();
     var quat = new THREE.Quaternion();
-
-    // Ground
     pos.set( 0, - 0.5, 0 );
     quat.set( 0, 0, 0, 1 );
-    var ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: 0xFFFFFF } ) );
+    ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: 0xFFFFFF } ) );
     ground.castShadow = true;
     ground.receiveShadow = true;
-    createWall(pos, quat, 1.4, 6, 8, createMaterial(), -8);
-    createWall(pos, quat, 1.4, 6, 8, createMaterial(), pos.z-0.3);
+    
+    wall1 = createWall(pos, quat, 1.4, 6, 8, createMaterial(), -8);
+    wall2 = createWall(pos, quat, 1.4, 6, 8, createMaterial(), pos.z-0.3);    
+}
+
+function clearObjects(){
+    for (var i = rigidBodies.length - 1; i >= 0; i--) {
+        var body = rigidBodies[i];
+        body.material.dispose();
+        body.geometry.dispose();
+        physicsWorld.removeRigidBody(body.userData.physicsBody);
+        scene.remove(body);
+    }
+    if(ground){
+        ground.material.dispose();
+        ground.geometry.dispose();
+        scene.remove(ground);
+    }
+    rigidBodies = [];
 }
 
 
 function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
+    var bricks = [];
     var brickMass = objectMass;
     var brickLength = 1.2;
     var brickDepth = 0.6;
@@ -164,7 +175,7 @@ function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
             var brick = createParalellepiped( brickDepth, brickHeight, brickLengthCurrent, brickMassCurrent, pos, quat, colorMaterial);
             brick.castShadow = true;
             brick.receiveShadow = true;
-
+            bricks.push(brick);
             if ( oddRow && ( i == 0 || i == nRow - 2 ) ) {
                 pos.z += 0.75 * brickLength;
             }
@@ -174,6 +185,7 @@ function createWall(pos, quat, objectMass, cols, rows, colorMaterial, newZ){
         }
         pos.y += brickHeight;
     }
+    return bricks;
 }
 
 function createRandomColor() {
@@ -284,37 +296,52 @@ function updatePhysics( deltaTime ) {
 
 }
 
-
-function input(){
+function ThrowBall(mass, posX, posY){
+    console.log("Ball posX", posX, "posY", posY);
     var pos = new THREE.Vector3();
     var quat = new THREE.Quaternion();
-
     var mouseCoords = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
-//    var ballMaterial = new THREE.MeshPhongMaterial( { color: 0x202020 } );
-    var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.05, transparent: true, depthWrite: false});
+    var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.5, transparent: true, depthWrite: false});
 
+    mouseCoords.set(posX,posY);
+    raycaster.setFromCamera( mouseCoords, camera );
+    // Creates a ball and throws it
+    var ballMass = mass;
+    var ballRadius = 0.4;
+    var ball = new THREE.Mesh( new THREE.SphereGeometry( ballRadius, 14, 10 ), ballMaterial );
+    ball.castShadow = false;
+    ball.receiveShadow = false;
+    var ballShape = new Ammo.btSphereShape( ballRadius );
+    ballShape.setMargin( margin );
+    pos.copy( raycaster.ray.direction );
+    pos.add( raycaster.ray.origin );
+    quat.set( 0, 0, 0, 1 );
+    var ballBody = createRigidBody( ball, ballShape, ballMass, pos, quat );
+    pos.copy( raycaster.ray.direction );
+    pos.multiplyScalar( 24 );
+    ballBody.setLinearVelocity( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
+}
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function input(){
+    document.getElementById("nextPhase").addEventListener("click", function(){
+        createObjects();
+    });
+
+    document.getElementById("player1").addEventListener("click", function(){
+        var z = getRandomArbitrary(wall1[wall1.length-1].position.z, wall1[0].position.z)
+        var y = getRandomArbitrary(wall1[wall1.length-1].position.y, wall1[0].position.y)
+        var x = 0;
+        console.log(z)
+    });
     window.addEventListener( 'mousedown', function( event ) {
-        mouseCoords.set(
-            ( event.clientX / window.innerWidth ) * 2 - 1,
-            - ( event.clientY / window.innerHeight ) * 2 + 1
-        );
-        raycaster.setFromCamera( mouseCoords, camera );
-        // Creates a ball and throws it
-        var ballMass = 0.2;
-        var ballRadius = 0.4;
-        var ball = new THREE.Mesh( new THREE.SphereGeometry( ballRadius, 14, 10 ), ballMaterial );
-        ball.castShadow = false;
-        ball.receiveShadow = false;
-        var ballShape = new Ammo.btSphereShape( ballRadius );
-        ballShape.setMargin( margin );
-        pos.copy( raycaster.ray.direction );
-        pos.add( raycaster.ray.origin );
-        quat.set( 0, 0, 0, 1 );
-        var ballBody = createRigidBody( ball, ballShape, ballMass, pos, quat );
-        pos.copy( raycaster.ray.direction );
-        pos.multiplyScalar( 24 );
-        ballBody.setLinearVelocity( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
+        console.log(event.clientX, window.innerWidth, event.clientX/window.innerWidth)
+        console.log(event.clientY, window.innerWidth, event.clientX/window.innerWidth)
+        ThrowBall(0.5, ( event.clientX / window.innerWidth ) * 2 - 1,
+            - ( event.clientY / window.innerHeight ) * 2 + 1);
     }, false );
 }
 init();
