@@ -319,15 +319,14 @@ function updatePhysics( deltaTime ) {
 
 }
 
-function ThrowBall(mass, posX, posY){
-    console.log("Ball posX", posX, "posY", posY);
+function ThrowBall(mass, targetPosition){
     var pos = new THREE.Vector3();
     var quat = new THREE.Quaternion();
     var mouseCoords = new THREE.Vector2();
     var raycaster = new THREE.Raycaster();
     var ballMaterial = new THREE.MeshBasicMaterial({color: 0x202020, opacity: 0.5, transparent: true, depthWrite: false});
 
-    mouseCoords.set(posX,posY);
+    mouseCoords.set(targetPosition.x,targetPosition.y);
     raycaster.setFromCamera( mouseCoords, camera );
     // Creates a ball and throws it
     var ballMass = mass;
@@ -337,35 +336,50 @@ function ThrowBall(mass, posX, posY){
     ball.receiveShadow = false;
     var ballShape = new Ammo.btSphereShape( ballRadius );
     ballShape.setMargin( margin );
-    pos.copy( raycaster.ray.direction );
-    pos.add( raycaster.ray.origin );
+    pos.copy(raycaster.ray.direction);
+    pos.set(targetPosition.x, targetPosition.y, targetPosition.z);
     quat.set( 0, 0, 0, 1 );
     var ballBody = createRigidBody( ball, ballShape, ballMass, pos, quat );
     pos.copy( raycaster.ray.direction );
     pos.multiplyScalar( 24 );
     ballBody.setLinearVelocity( new Ammo.btVector3( pos.x, pos.y, pos.z ) );
 }
+
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
+function getRandomPositionBasedOnWall(wall){
+    var position = new THREE.Vector3();
+    var firstBrick = wall[wall.length-1].position;
+    var lastBrick = wall[0].position;
+    position.set(getRandomArbitrary(lastBrick.x, firstBrick.x), 
+        getRandomArbitrary(lastBrick.y, firstBrick.y), 
+        getRandomArbitrary(lastBrick.z, firstBrick.z))
+    return position;
+}
 function input(){
     document.getElementById("nextPhase").addEventListener("click", function(){
         createObjects();
     });
 
     document.getElementById("player1").addEventListener("click", function(){
-        var z = getRandomArbitrary(wall1[wall1.length-1].brick.position.z, wall1[0].brick.position.z)
-        var y = getRandomArbitrary(wall1[wall1.length-1].brick.position.y, wall1[0].brick.position.y)
-        var x = 0;
-        console.log(z)
+        var position = getRandomPositionBasedOnWall(wall1);
+        ThrowBall(0.3, position);
+
     });
-    window.addEventListener( 'mousedown', function( event ) {
-        console.log(event.clientX, window.innerWidth, event.clientX/window.innerWidth)
-        console.log(event.clientY, window.innerWidth, event.clientX/window.innerWidth)
-        ThrowBall(0.5, ( event.clientX / window.innerWidth ) * 2 - 1,
-            - ( event.clientY / window.innerHeight ) * 2 + 1);
-    }, false );
+    document.getElementById("player2").addEventListener("click", function(){
+        var position = getRandomPositionBasedOnWall(wall2);
+        ThrowBall(0.3, position);
+
+    });
+    // window.addEventListener( 'mousedown', function( event ) {
+    //     console.log(event.clientX, window.innerWidth, event.clientX/window.innerWidth)
+    //     console.log(event.clientY, window.innerWidth, event.clientX/window.innerWidth)
+    //     ThrowBall(0.5, ( event.clientX / window.innerWidth ) * 2 - 1,
+    //         - ( event.clientY / window.innerHeight ) * 2 + 1);
+    //     c
+    // }, false );
 }
 init();
 animate();
