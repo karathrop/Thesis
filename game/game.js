@@ -281,9 +281,17 @@ function animate() {
         render();
         stats.update();
     }else{
-        alert("Game Over: You broke " + wallsBroken + " walls!"); 
+        alert("Game Over: You broke " + wallsBroken + " walls! Press Ok to Play Again"); 
+        startNewGame();
     }
 
+}
+
+function startNewGame(){
+    countdown = 30;
+    wallsBroken = 0;
+    createObjects();
+    animate(); 
 }
 
 
