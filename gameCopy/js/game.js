@@ -46,7 +46,7 @@ var masses = [
 var wall1IsBroken = false;
 var wall2IsBroken = false;
 
-function init() {
+function initThree() {
     initGraphics();
     initPhysics();
     createObjects();
@@ -435,6 +435,6 @@ function input(){
     //     c
     // }, false );
 }
-init();
+initThree();
 animate();
 input();
