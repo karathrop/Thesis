@@ -60,13 +60,13 @@ for(var i = 1; i<=4; i++){
         if(this.dataNext <= 4){
             document.getElementById("scene"+this.dataNext+"Video").play();
         }else if(this.dataNext === 5){
-            initializeGame();
+            startNewGame();
         }
     });
 }
 
 function hideAllScene(){
-    var scenes = ['scene1','scene2','scene3','scene4'];
+    var scenes = ['scene1','scene2','scene3','scene4', 'scene5'];
     var videos = ['scene1Video','scene2Video','scene3Video','scene4Video'];
     for(var i  = 0; i<scenes.length; i++){
         console.log(scenes[i])
@@ -315,6 +315,7 @@ function animate() {
     }else{
         alert("Game Over: You broke " + wallsBroken + " walls! Press Ok to Play Again"); 
         startNewGame();
+        scene1Button.click();
     }
 
 }
@@ -447,20 +448,15 @@ function getRandomPositionBasedOnWall(wall){
     return position;
 }
 
-function initializeGame(){
+document.getElementById("player1").addEventListener("click", function(){
+    var position = getRandomPositionBasedOnWall(wall1);
+    ThrowBall(configuration[wallsBroken].ballMass, position);
 
-    document.getElementById("player1").addEventListener("click", function(){
-        var position = getRandomPositionBasedOnWall(wall1);
-        ThrowBall(configuration[wallsBroken].ballMass, position);
+});
+document.getElementById("player2").addEventListener("click", function(){
+    var position = getRandomPositionBasedOnWall(wall2);
+    ThrowBall(configuration[wallsBroken].ballMass, position);
 
-    });
-    document.getElementById("player2").addEventListener("click", function(){
-        var position = getRandomPositionBasedOnWall(wall2);
-        ThrowBall(configuration[wallsBroken].ballMass, position);
+});
 
-    });
-
-    init();
-    animate();
-}
-
+init();
