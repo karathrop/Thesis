@@ -30,7 +30,7 @@ var wall1 = [];
 var wall2 = [];
 var ground;
 
-var masses = [
+var configuration = [
     {brickMass:1.4, ballMass:1.2, color: 0xFFFFFF, label:"Berlin Wall, Germany"},
     {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9, label:"Sacsayhuamán, Peru"},
     {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6, label:"Israeli West Bank barrier wall"},
@@ -45,6 +45,38 @@ var masses = [
 
 var wall1IsBroken = false;
 var wall2IsBroken = false;
+
+var scene1Button = document.getElementById("scene1Button");
+var scene2Button = document.getElementById("scene2Button");
+var scene3Button = document.getElementById("scene3Button");
+var scene4Button = document.getElementById("scene4Button");
+
+for(var i = 1; i<=4; i++){
+    var button = document.getElementById("scene"+i+"Button");
+    button.dataNext=1+i;
+    button.addEventListener("click", function(){
+        hideAllScene();
+        document.getElementById("scene"+this.dataNext).style.display="block";
+        if(this.dataNext <= 4){
+            document.getElementById("scene"+this.dataNext+"Video").play();
+        }else if(this.dataNext === 5){
+            initializeGame();
+        }
+    });
+}
+
+function hideAllScene(){
+    var scenes = ['scene1','scene2','scene3','scene4'];
+    var videos = ['scene1Video','scene2Video','scene3Video','scene4Video'];
+    for(var i  = 0; i<scenes.length; i++){
+        console.log(scenes[i])
+        document.getElementById(scenes[i]).style.display = "none";
+        if(document.getElementById(videos[i])){
+            console.log(videos[i]);
+            document.getElementById(videos[i]).pause();
+        }
+    }
+}
 
 function init() {
     initGraphics();
@@ -133,13 +165,13 @@ function createObjects() {
     var quat = new THREE.Quaternion();
     pos.set( 0, - 0.5, 0 );
     quat.set( 0, 0, 0, 1 );
-    ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: masses[wallsBroken].color } ) );
+    ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: configuration[wallsBroken].color } ) );
     ground.castShadow = true;
     ground.receiveShadow = true;
     
-    wall1 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), -8);
-    wall2 = createWall(pos, quat, masses[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);   
-    document.getElementById("walllabel").innerHTML=masses[wallsBroken].label; 
+    wall1 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(), -8);
+    wall2 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);   
+    document.getElementById("walllabel").innerHTML=configuration[wallsBroken].label; 
 }
 
 function clearObjects(){
@@ -415,26 +447,20 @@ function getRandomPositionBasedOnWall(wall){
     return position;
 }
 
-function input(){
+function initializeGame(){
 
     document.getElementById("player1").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall1);
-        ThrowBall(masses[wallsBroken].ballMass, position);
+        ThrowBall(configuration[wallsBroken].ballMass, position);
 
     });
     document.getElementById("player2").addEventListener("click", function(){
         var position = getRandomPositionBasedOnWall(wall2);
-        ThrowBall(masses[wallsBroken].ballMass, position);
+        ThrowBall(configuration[wallsBroken].ballMass, position);
 
     });
-    // window.addEventListener( 'mousedown', function( event ) {
-    //     console.log(event.clientX, window.innerWidth, event.clientX/window.innerWidth)
-    //     console.log(event.clientY, window.innerWidth, event.clientX/window.innerWidth)
-    //     ThrowBall(0.5, ( event.clientX / window.innerWidth ) * 2 - 1,
-    //         - ( event.clientY / window.innerHeight ) * 2 + 1);
-    //     c
-    // }, false );
+
+    init();
+    animate();
 }
-init();
-animate();
-input();
+
