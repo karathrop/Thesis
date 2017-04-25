@@ -24,7 +24,7 @@ var physicsWorld;
 var rigidBodies = [];
 var margin = 0.05;
 var transformAux1 = new Ammo.btTransform();
-
+var currentScene = 1;
 var time = 0;
 var wall1 = [];
 var wall2 = [];
@@ -55,13 +55,7 @@ for(var i = 1; i<=4; i++){
     var button = document.getElementById("scene"+i+"Button");
     button.dataNext=1+i;
     button.addEventListener("click", function(){
-        hideAllScene();
-        document.getElementById("scene"+this.dataNext).style.display="block";
-        if(this.dataNext <= 4){
-            document.getElementById("scene"+this.dataNext+"Video").play();
-        }else if(this.dataNext === 5){
-            startNewGame();
-        }
+        goToNextScene(this.dataNext);
     });
 }
 
@@ -69,19 +63,36 @@ function hideAllScene(){
     var scenes = ['scene1','scene2','scene3','scene4', 'scene5'];
     var videos = ['scene1Video','scene2Video','scene3Video','scene4Video'];
     for(var i  = 0; i<scenes.length; i++){
-        console.log(scenes[i])
         document.getElementById(scenes[i]).style.display = "none";
         if(document.getElementById(videos[i])){
-            console.log(videos[i]);
             document.getElementById(videos[i]).pause();
         }
     }
+}
+
+function goToNextScene(scene){
+    if(scene === undefined){
+        currentScene += 1;    
+    }else{
+        currentScene = scene;
+    }
+    if(currentScene > 5) currentScene = 5;
+    hideAllScene();
+    document.getElementById("scene"+currentScene).style.display="block";
+    if(currentScene <= 4){
+        document.getElementById("scene"+currentScene+"Video").currentTime = 0;
+        document.getElementById("scene"+currentScene+"Video").play();
+    }else if(currentScene === 5){
+        startNewGame();
+    }
+    console.log("current scene", currentScene);
 }
 
 function init() {
     initGraphics();
     initPhysics();
     createObjects();
+    animate();
 }
 
 function initGraphics() {
@@ -308,14 +319,12 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat, vel, angVe
 }
 
 function animate() {
-    if(countdown > 0){
-        requestAnimationFrame( animate );
-        render();
-        stats.update();
-    }else{
+    requestAnimationFrame( animate );
+    render();
+    stats.update();
+    if(countdown <= 0 && currentScene == 5){
         alert("Game Over: You broke " + wallsBroken + " walls! Press Ok to Play Again"); 
-        startNewGame();
-        scene1Button.click();
+        goToNextScene(1);
     }
 
 }
@@ -324,7 +333,6 @@ function startNewGame(){
     countdown = 30;
     wallsBroken = 0;
     createObjects();
-    animate(); 
 }
 
 
@@ -342,9 +350,9 @@ function render() {
     renderer.render( scene, camera );
 
     time += deltaTime;
-
     countdown -=deltaTime;
     document.getElementById("countDown").innerHTML=formatTime(countdown);
+
 }
 
 function formatTime(time){
