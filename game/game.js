@@ -4,6 +4,7 @@ if ( ! Detector.webgl ) {
     console.log("webgl");
     document.getElementById( 'container' ).innerHTML = "";
 }
+var socket;
 var countdown = 30;
 var wallsBroken = 0;
 
@@ -93,6 +94,7 @@ function init() {
     initPhysics();
     createObjects();
     animate();
+    initSocket();
 }
 
 function initGraphics() {
@@ -467,4 +469,15 @@ document.getElementById("player2").addEventListener("click", function(){
 
 });
 
-init();
+function initSocket(){
+    socket = io.connect('http://kcl389.itp.io:8899');
+    socket.on('sensor', _.debounce(function(data) {
+        console.log("Sensor data event:", data)
+        if(data === 1){
+            goToNextScene();
+        }
+    }, 1000));
+}
+window.onload = function(){
+    init();
+}
