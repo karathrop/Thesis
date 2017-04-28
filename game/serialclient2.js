@@ -22,10 +22,9 @@ serialPort.on("open", function () {
 
 		serialPort.on('data', function(data) {
 	  	
-	    console.log('data received: ' + data);
-	    socket.emit('left',data.toString());
-	    //socket.emit('sensor2',data.toString());
-	  });
+		    console.log('data received: ' + data);
+		    socket.emit('datasensorRight',data.toString());
+		});
   });
 });
 

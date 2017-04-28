@@ -472,12 +472,23 @@ document.getElementById("player2").addEventListener("click", function(){
 function initSocket(){
     socket = io.connect('http://kcl389.itp.io:8899');
     socket.on('click', function(data) {
+        if(currentScene < 5){
             console.log("should go to next scene");
             goToNextScene();
+        }
     });
-    socket.on('throwBall', function(data){
-	var position = getRandomPositionBasedOnWall(wall1);
-    	ThrowBall(configuration[wallsBroken].ballMass, position);
+    socket.on('throwBallLeft', function(data){
+        if(currentScene == 5){
+            var position = getRandomPositionBasedOnWall(wall1);
+            ThrowBall(configuration[wallsBroken].ballMass, position);
+        }
+    });
+
+    socket.on('throwBallRight', function(data){
+        if(currentScene == 5){
+            var position = getRandomPositionBasedOnWall(wall2);
+            ThrowBall(configuration[wallsBroken].ballMass, position);
+        }
     });
 }
 window.onload = function(){

@@ -49,21 +49,21 @@ var io = require('socket.io').listen(httpServer);
 io.on('connection', 
 	function (socket) {	
 		console.log("We have a new client: " + socket.id);
-                socket.on('datasensor', function(data){
-                        if(parseInt(data,10) == 1){
-                        	io.sockets.emit('click', data);
-                        }
-                        if(parseInt(data, 10) > 5) {
-				io.sockets.emit('throwBall', data);
+        socket.on('datasensorLeft', function(data){
+	        if(parseInt(data,10) == 1){
+	        	io.sockets.emit('click', data);
+	        }
+	        if(parseInt(data, 10) >= 5) {
+				io.sockets.emit('throwBallLeft', data);
 			}
-                }); 	
-		//socket.on('sensor', function(data) {
-		//	console.log(data);
-			// var dataToSend = {
-			// 	'id':socket.id,
-			// 	'data':data
-			// }
-		//	io.sockets.emit("sensor", data);
-		//});
+	    }); 
+	    socket.on('datasensorRight', function(data){
+	        if(parseInt(data,10) == 1){
+	        	io.sockets.emit('click', data);
+	        }
+	        if(parseInt(data, 10) >= 5) {
+				io.sockets.emit('throwBallRight', data);
+			}
+	    }); 
 	}
 );
