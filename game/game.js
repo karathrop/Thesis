@@ -471,12 +471,14 @@ document.getElementById("player2").addEventListener("click", function(){
 
 function initSocket(){
     socket = io.connect('http://kcl389.itp.io:8899');
-    socket.on('sensor', _.debounce(function(data) {
-        console.log("Sensor data event:", data)
-        if(data === 1){
+    socket.on('click', function(data) {
+            console.log("should go to next scene");
             goToNextScene();
-        }
-    }, 1000));
+    });
+    socket.on('throwBall', function(data){
+	var position = getRandomPositionBasedOnWall(wall1);
+    	ThrowBall(configuration[wallsBroken].ballMass, position);
+    });
 }
 window.onload = function(){
     init();
