@@ -32,16 +32,16 @@ var wall2 = [];
 var ground;
 
 var configuration = [
-    {brickMass:1.4, ballMass:1.2, colorWall1:0xC9C9C9, colorWall2: 0x0000FF, color: 0xFFFFFF, label:"Wall 1"},
-    {brickMass:1.9, ballMass:1.3, colorWall1:0xC3C3C3, colorWall2: 0x0000FF, color: 0xC9C9C9, label:"Wall 2"},
-    {brickMass:2.5, ballMass:1.3, colorWall1:0xC1C1C1, colorWall2: 0x0000FF, color: 0xC6C6C6, label:"wall 3"},
-    {brickMass:3.5, ballMass:2.3, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xC3C3C3, label:"Wall 4"},
-    {brickMass:4.5, ballMass:3.7, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFF0000, label:"Wall 5"},
-    {brickMass:4.5, ballMass:4,   colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0x00FF00, label:"Wall 6"},
-    {brickMass:5.5, ballMass:4.6, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0x0000FF, label:"Wall 7"},
-    {brickMass:6.5, ballMass:5.6, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xF2C0E0, label:"Wall 8"},
-    {brickMass:7.5, ballMass:6.7, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFFCC00, label:"Wall 9"},
-    {brickMass:8.5, ballMass:7.5, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xC3F2D4, label:"Wall 10"}
+    {brickMass:1.4, ballMass:1.2, colorWall1:0x73c6ef, colorWall2: 0x57f7d8, color: 0xFFFFFF, label:"Wall 1"},
+    {brickMass:1.9, ballMass:1.3, colorWall1:0x60c3ea, colorWall2: 0x3df4d1, color: 0xFFFFFF, label:"Wall 2"},
+    {brickMass:2.5, ballMass:1.3, colorWall1:0x32b6ea, colorWall2: 0x0aedc1, color: 0xFFFFFF, label:"wall 3"},
+    {brickMass:3.5, ballMass:2.3, colorWall1:0x0ab2e5, colorWall2: 0x0dcea9, color: 0xFFFFFF, label:"Wall 4"},
+    {brickMass:4.5, ballMass:3.7, colorWall1:0x0f97b7, colorWall2: 0x0caa8b, color: 0xFFFFFF, label:"Wall 5"},
+    {brickMass:4.5, ballMass:4,   colorWall1:0x097f93, colorWall2: 0x0a7f69, color: 0xFFFFFF, label:"Wall 6"},
+    {brickMass:5.5, ballMass:4.6, colorWall1:0x054f56, colorWall2: 0x07604f, color: 0xFFFFFF, label:"Wall 7"},
+    {brickMass:6.5, ballMass:5.6, colorWall1:0x032628, colorWall2: 0x04382e, color: 0xFFFFFF, label:"Wall 8"},
+    {brickMass:7.5, ballMass:6.7, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 9"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFFFFFF, label:"Wall 10"}
 ];
 
 var endGameMessage = "Congrats! You broke <number> walls and saved thousands of people";
