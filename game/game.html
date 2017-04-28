@@ -50,6 +50,36 @@
                 top:5%;
 
             }
+
+            #scene6 {
+                margin: 0 auto;
+                text-align: center;
+                position:relative;
+            }
+            #scene6 img{
+                text-align: center;
+                margin: 0 auto;
+            }
+            #scene6 span {
+                position:absolute;
+                color:white;
+                font-size: 28px;
+                font-weight: bold;
+                width:310px;
+                transform: rotateZ(-15deg);
+                top:48%;
+                left:41%;
+
+            }
+
+            .rotateScene {
+                -webkit-animation:spin 0.5s linear 1;
+                -moz-animation:spin 0.5s linear 1;
+                animation:spin 0.5s linear 1;
+            }
+            @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+            @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+            @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
@@ -108,6 +138,15 @@
         <button id="player1">player1 (punch the wall)</button>
         <button id="player2">player2 (punch the wall)</button>
     </div>
+
+    <div id="scene6" >
+        <div>
+        <img src="assets/newspaper.png"/>
+        <span id="scene6Label"> You broke 0 walls and save thousands of people</span>
+        </div>
+    </div>
+
+
 	<script  src="js/three.js" type=""></script>
 	<script  src="js/ammo.js"></script>
 	<script  src="js/OrbitControls.js"></script>

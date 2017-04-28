@@ -42,7 +42,9 @@ var configuration = [
     {brickMass:6.5, ballMass:5.6, color: 0xF2C0E0, label:"more walls :( "},
     {brickMass:7.5, ballMass:6.7, color: 0xFFCC00, label:"walls are bad"},
     {brickMass:8.5, ballMass:7.5, color: 0xC3F2D4, label:"last wall"}
-]
+];
+
+var endGameMessage = "Congrats! You broke <number> walls and saved thousands of people";
 
 var wall1IsBroken = false;
 var wall2IsBroken = false;
@@ -61,8 +63,9 @@ for(var i = 1; i<=4; i++){
 }
 
 function hideAllScene(){
-    var scenes = ['scene1','scene2','scene3','scene4', 'scene5'];
+    var scenes = ['scene1','scene2','scene3','scene4', 'scene5', 'scene6'];
     var videos = ['scene1Video','scene2Video','scene3Video','scene4Video'];
+    document.getElementById("scene6").className = "";
     for(var i  = 0; i<scenes.length; i++){
         document.getElementById(scenes[i]).style.display = "none";
         if(document.getElementById(videos[i])){
@@ -77,7 +80,7 @@ function goToNextScene(scene){
     }else{
         currentScene = scene;
     }
-    if(currentScene > 5) currentScene = 5;
+    if(currentScene > 6) currentScene = 6;
     hideAllScene();
     document.getElementById("scene"+currentScene).style.display="block";
     if(currentScene <= 4){
@@ -85,8 +88,14 @@ function goToNextScene(scene){
         document.getElementById("scene"+currentScene+"Video").play();
     }else if(currentScene === 5){
         startNewGame();
+    }else if(currentScene === 6){
+        var message = endGameMessage.replace("<number>", wallsBroken);
+        var labelElement = document.getElementById("scene"+currentScene+"Label");
+        labelElement.innerHTML = message;
+        labelElement.parentNode.className = "rotateScene";
+
+
     }
-    console.log("current scene", currentScene);
 }
 
 function init() {
@@ -325,15 +334,14 @@ function animate() {
     render();
     stats.update();
     if(countdown <= 0 && currentScene == 5){
-        alert("Game Over: You broke " + wallsBroken + " walls! Press Ok to Play Again"); 
-        goToNextScene(1);
+        goToNextScene(6);
     }
-
 }
 
 function startNewGame(){
     countdown = 30;
     wallsBroken = 0;
+    
     createObjects();
 }
 
@@ -354,6 +362,7 @@ function render() {
     time += deltaTime;
     countdown -=deltaTime;
     document.getElementById("countDown").innerHTML=formatTime(countdown);
+
 
 }
 
