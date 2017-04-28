@@ -41,7 +41,7 @@ var configuration = [
     {brickMass:5.5, ballMass:4.6, colorWall1:0x054f56, colorWall2: 0x07604f, color: 0xFFFFFF, label:"Wall 7"},
     {brickMass:6.5, ballMass:5.6, colorWall1:0x032628, colorWall2: 0x04382e, color: 0xFFFFFF, label:"Wall 8"},
     {brickMass:7.5, ballMass:6.7, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 9"},
-    {brickMass:8.5, ballMass:7.5, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFFFFFF, label:"Wall 10"}
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 10"}
 ];
 
 var endGameMessage = "Congrats! You broke <number> walls and saved thousands of people";
