@@ -69,6 +69,7 @@
                 transform: rotateZ(-15deg);
                 top:48%;
                 left:41%;
+                
 
             }
 
@@ -76,10 +77,11 @@
                 -webkit-animation:spin 0.5s linear 1;
                 -moz-animation:spin 0.5s linear 1;
                 animation:spin 0.5s linear 1;
+
             }
-            @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-            @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-            @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+            @-moz-keyframes spin { 10% { -moz-transform: rotate(360deg) scale(0.2); } }
+            @-webkit-keyframes spin { 10% { -webkit-transform: rotate(360deg) scale(0.2); } }
+            @keyframes spin { 10% { -webkit-transform: rotate(360deg) scale(0.2); transform:rotate(360deg) scale(0.2); } }
         </style>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
