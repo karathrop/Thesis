@@ -6,7 +6,7 @@
 */
 
 var SerialPort = require('serialport');
-var serialPort = new SerialPort("/dev/cu.Bluetooth-Incoming-Port", {
+var serialPort = new SerialPort("/tmp/cu.LightBlue-Bean", {
   baudrate: 9600,
 	parser: SerialPort.parsers.readline('\n')
 });
@@ -24,6 +24,7 @@ serialPort.on("open", function () {
 	  	
 		    console.log('data received: ' + data);
 		    socket.emit('datasensorLeft',data.toString());
+
 		});
   });
 });

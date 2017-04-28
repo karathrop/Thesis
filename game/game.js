@@ -32,16 +32,16 @@ var wall2 = [];
 var ground;
 
 var configuration = [
-    {brickMass:1.4, ballMass:1.2, color: 0xFFFFFF, label:"Wall 1"},
-    {brickMass:1.9, ballMass:1.3, color: 0xC9C9C9, label:"Wall 2"},
-    {brickMass:2.5, ballMass:1.3, color: 0xC6C6C6, label:"wall 3"},
-    {brickMass:3.5, ballMass:2.3, color: 0xC3C3C3, label:"Wall 4"},
-    {brickMass:4.5, ballMass:3.7, color: 0xFF0000, label:"Wall 5"},
-    {brickMass:4.5, ballMass:4,   color: 0x00FF00, label:"Wall 6"},
-    {brickMass:5.5, ballMass:4.6, color: 0x0000FF, label:"Wall 7"},
-    {brickMass:6.5, ballMass:5.6, color: 0xF2C0E0, label:"Wall 8"},
-    {brickMass:7.5, ballMass:6.7, color: 0xFFCC00, label:"Wall 9"},
-    {brickMass:8.5, ballMass:7.5, color: 0xC3F2D4, label:"Wall 10"}
+    {brickMass:1.4, ballMass:1.2, colorWall1:0xC9C9C9, colorWall2: 0x0000FF, color: 0xFFFFFF, label:"Wall 1"},
+    {brickMass:1.9, ballMass:1.3, colorWall1:0xC3C3C3, colorWall2: 0x0000FF, color: 0xC9C9C9, label:"Wall 2"},
+    {brickMass:2.5, ballMass:1.3, colorWall1:0xC1C1C1, colorWall2: 0x0000FF, color: 0xC6C6C6, label:"wall 3"},
+    {brickMass:3.5, ballMass:2.3, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xC3C3C3, label:"Wall 4"},
+    {brickMass:4.5, ballMass:3.7, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFF0000, label:"Wall 5"},
+    {brickMass:4.5, ballMass:4,   colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0x00FF00, label:"Wall 6"},
+    {brickMass:5.5, ballMass:4.6, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0x0000FF, label:"Wall 7"},
+    {brickMass:6.5, ballMass:5.6, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xF2C0E0, label:"Wall 8"},
+    {brickMass:7.5, ballMass:6.7, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xFFCC00, label:"Wall 9"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0xFFCC00, colorWall2: 0x0000FF, color: 0xC3F2D4, label:"Wall 10"}
 ];
 
 var endGameMessage = "Congrats! You broke <number> walls and saved thousands of people";
@@ -155,10 +155,10 @@ function initGraphics() {
 
     container.appendChild( renderer.domElement );
 
-    stats = new Stats();
-    stats.domElement.style.position = 'absolute';
-    stats.domElement.style.top = '0px';
-    container.appendChild( stats.domElement );
+    // stats = new Stats();
+    // stats.domElement.style.position = 'absolute';
+    // stats.domElement.style.top = '0px';
+    // container.appendChild( stats.domElement );
 
     window.addEventListener( 'resize', onWindowResize, false );
 
@@ -195,8 +195,8 @@ function createObjects() {
     ground.castShadow = true;
     ground.receiveShadow = true;
     
-    wall1 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(), -8);
-    wall2 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(), pos.z-0.3);   
+    wall1 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(configuration[wallsBroken].colorWall1), -8);
+    wall2 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(configuration[wallsBroken].colorWall2), pos.z-0.3);   
     document.getElementById("walllabel").innerHTML=configuration[wallsBroken].label; 
 }
 
@@ -274,8 +274,9 @@ function createRandomColor() {
     return Math.floor( Math.random() * ( 1 << 24 ) );
 }
 
-function createMaterial() {
-    return new THREE.MeshPhongMaterial( { color: createRandomColor() } );
+function createMaterial(color) {
+    console.log("color", createRandomColor());
+    return new THREE.MeshPhongMaterial( { color: color ? color : createRandomColor() } );
 }
 
 function createParalellepiped( sx, sy, sz, mass, pos, quat, material ) {
@@ -336,7 +337,7 @@ function createRigidBody( threeObject, physicsShape, mass, pos, quat, vel, angVe
 function animate() {
     requestAnimationFrame( animate );
     render();
-    stats.update();
+    //stats.update();
     if(countdown <= 0 && currentScene == 5){
         goToNextScene(6);
     }
@@ -483,7 +484,7 @@ document.getElementById("player2").addEventListener("click", function(){
 });
 
 function initSocket(){
-    socket = io.connect('http://localhost:8899');
+    socket = io.connect('http://kcl389.itp.io:8899');
     console.log("init socket");
     socket.on('click', function(data) {
         console.log("should go to next scene, current scene is:", currentScene);
