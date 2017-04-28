@@ -53,6 +53,7 @@ var scene1Button = document.getElementById("scene1Button");
 var scene2Button = document.getElementById("scene2Button");
 var scene3Button = document.getElementById("scene3Button");
 var scene4Button = document.getElementById("scene4Button");
+var scene6Button = document.getElementById("scene6Button");
 
 for(var i = 1; i<=4; i++){
     var button = document.getElementById("scene"+i+"Button");
@@ -61,6 +62,9 @@ for(var i = 1; i<=4; i++){
         goToNextScene(this.dataNext);
     });
 }
+scene6Button.addEventListener("click", function(){
+    goToNextScene(1);
+});
 
 function hideAllScene(){
     var scenes = ['scene1','scene2','scene3','scene4', 'scene5', 'scene6'];
