@@ -49,6 +49,19 @@ var io = require('socket.io').listen(httpServer);
 io.on('connection', 
 	function (socket) {	
 		console.log("We have a new client: " + socket.id);
+		socket.on('click', function(){
+			console.log("server click")
+			io.sockets.emit('click');
+		});
+
+		socket.on('player1', function(){
+			io.sockets.emit('throwBallLeft');
+		});
+
+		socket.on('player2', function(){
+			io.sockets.emit('throwBallRight');
+		});
+
         socket.on('datasensorLeft', function(data){
 	        if(parseInt(data,10) == 1){
 	        	io.sockets.emit('click', data);

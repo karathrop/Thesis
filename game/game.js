@@ -470,10 +470,12 @@ document.getElementById("player2").addEventListener("click", function(){
 });
 
 function initSocket(){
-    socket = io.connect('http://kcl389.itp.io:8899');
+    socket = io.connect('http://localhost:8899');
+    console.log("init socket");
     socket.on('click', function(data) {
+        console.log("should go to next scene, current scene is:", currentScene);
         if(currentScene < 5){
-            console.log("should go to next scene");
+            
             goToNextScene();
         }
     });
