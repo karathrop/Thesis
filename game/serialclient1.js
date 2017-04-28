@@ -6,7 +6,7 @@
 */
 
 var SerialPort = require('serialport');
-var serialPort = new SerialPort("/dev/cu.LightBlue-Bean", {
+var serialPort = new SerialPort("/dev/cu.Bluetooth-Incoming-Port", {
   baudrate: 9600,
 	parser: SerialPort.parsers.readline('\n')
 });
