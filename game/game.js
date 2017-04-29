@@ -41,7 +41,12 @@ var configuration = [
     {brickMass:5.5, ballMass:4.6, colorWall1:0x054f56, colorWall2: 0x07604f, color: 0xFFFFFF, label:"Wall 7"},
     {brickMass:6.5, ballMass:5.6, colorWall1:0x032628, colorWall2: 0x04382e, color: 0xFFFFFF, label:"Wall 8"},
     {brickMass:7.5, ballMass:6.7, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 9"},
-    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 10"}
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 10"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 11"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 12"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 13"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 14"},
+    {brickMass:8.5, ballMass:7.5, colorWall1:0x010707, colorWall2: 0x000504, color: 0xFFFFFF, label:"Wall 15"},
 ];
 
 var endGameMessage = "Congrats! You broke <number> walls and saved thousands of people";
@@ -73,7 +78,9 @@ function hideAllScene(){
     for(var i  = 0; i<scenes.length; i++){
         document.getElementById(scenes[i]).style.display = "none";
         if(document.getElementById(videos[i])){
-            document.getElementById(videos[i]).pause();
+            if(document.getElementById(videos[i]).isPlaying){
+                document.getElementById(videos[i]).pause();
+            }
         }
     }
 }
@@ -88,8 +95,10 @@ function goToNextScene(scene){
     hideAllScene();
     document.getElementById("scene"+currentScene).style.display="block";
     if(currentScene <= 4){
-        document.getElementById("scene"+currentScene+"Video").currentTime = 0;
-        document.getElementById("scene"+currentScene+"Video").play();
+        if(!document.getElementById("scene"+currentScene+"Video").isPlaying){
+            document.getElementById("scene"+currentScene+"Video").currentTime = 0;
+            document.getElementById("scene"+currentScene+"Video").play();
+        }     
     }else if(currentScene === 5){
         startNewGame();
     }else if(currentScene === 6){

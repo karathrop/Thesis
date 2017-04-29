@@ -73,6 +73,15 @@
 
             }
 
+            #addGifHere{
+                    width: 200px;
+    z-index: 4000;
+    height: 500px;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+            }
+
             .rotateScene {
                 -webkit-animation:spin 0.5s linear 1;
                 -moz-animation:spin 0.5s linear 1;
@@ -92,6 +101,12 @@
     <body>
     <!-- scene 1intro video -->
     <div id="scene1">
+    <div id="addGifHere"></div>
+    <div class="camera" style="display:none">
+
+    <video id="videoToGif">Video stream not available.</video>
+    <!-- <button id="startbutton">Take photo</button>  -->
+  </div>
       <video id="scene1Video" width='100%' height='100%' autoplay loop>
         <source src="assets/intro_v2.mp4" type="video/mp4" /> 
       </video>
@@ -158,5 +173,7 @@
     <script  src="js/Detector.js"></script>
 	<script  src="js/stats.min.js"></script>
     <script src="game.js"></script>
+    <script src='js/gifshot.min.js'></script>
+    <script src="js/capture.js"></script>
     </body>
 </html>

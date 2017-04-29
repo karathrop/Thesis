@@ -66,7 +66,7 @@ io.on('connection',
 	        if(parseInt(data,10) == 1){
 	        	io.sockets.emit('click', data);
 	        }
-	        if(parseInt(data, 10) >= 5) {
+	        if(parseInt(data, 10) > 5) {
 	        	io.sockets.emit('throwBallRight', data);
 				io.sockets.emit('throwBallLeft', data);
 			}
@@ -75,7 +75,7 @@ io.on('connection',
 	        if(parseInt(data,10) == 1){
 	        	io.sockets.emit('click', data);
 	        }
-	        if(parseInt(data, 10) >= 5) {
+	        if(parseInt(data, 10) > 5) {
 				io.sockets.emit('throwBallRight', data);
 				io.sockets.emit('throwBallLeft', data);
 			}
