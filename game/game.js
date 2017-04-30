@@ -125,8 +125,8 @@ function initGraphics() {
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.2, 2000 );
     scene = new THREE.Scene();
 
-    camera.position.x = -10;
-    camera.position.y = 4;
+    camera.position.x = -8;
+    camera.position.y = 2;
     camera.position.z =  0;
 
     controls = new THREE.OrbitControls( camera );
@@ -199,14 +199,14 @@ function createObjects() {
 
     var pos = new THREE.Vector3();
     var quat = new THREE.Quaternion();
-    pos.set( 0, - 0.5, 0 );
+    pos.set( 0, - 0.5, 5 );
     quat.set( 0, 0, 0, 1 );
     ground = createParalellepiped( 40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial( { color: configuration[wallsBroken].color } ) );
     ground.castShadow = true;
     ground.receiveShadow = true;
     
-    wall1 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(configuration[wallsBroken].colorWall1), -8);
-    wall2 = createWall(pos, quat, configuration[wallsBroken].brickMass, 6, 8, createMaterial(configuration[wallsBroken].colorWall2), pos.z-0.3);   
+    wall1 = createWall(pos, quat, configuration[wallsBroken].brickMass, 8, 10, createMaterial(configuration[wallsBroken].colorWall1), -8);
+    wall2 = createWall(pos, quat, configuration[wallsBroken].brickMass, 8, 10, createMaterial(configuration[wallsBroken].colorWall2), pos.z-0.3);   
     document.getElementById("walllabel").innerHTML=configuration[wallsBroken].label; 
 }
 
