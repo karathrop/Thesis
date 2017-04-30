@@ -63,23 +63,21 @@
             #scene6 span {
                 position:absolute;
                 color:white;
-                font-size: 28px;
+                font-size: 30px;
                 font-weight: bold;
-                width:310px;
-                transform: rotateZ(-15deg);
+                width:263px;
                 top:48%;
-                left:41%;
+                left:55%;
                 
-
             }
 
-            #addGifHere{
-                    width: 200px;
-    z-index: 4000;
-    height: 500px;
-    top: 0px;
-    left: 0px;
-    position: absolute;
+            #scene6 #addGifHere{
+                width: 320px;
+                height:240px;
+                z-index: 4000;
+                top: 48%;
+                left: 33%;
+                position: absolute;
             }
 
             .rotateScene {
@@ -100,13 +98,7 @@
     </head>
     <body>
     <!-- scene 1intro video -->
-    <div id="scene1">
-    <div id="addGifHere"></div>
-    <div class="camera" style="display:none">
-
-    <video id="videoToGif">Video stream not available.</video>
-    <!-- <button id="startbutton">Take photo</button>  -->
-  </div>
+    <div id="scene1" style="display:block;">
       <video id="scene1Video" width='100%' height='100%' autoplay loop>
         <source src="assets/intro_v2.mp4" type="video/mp4" /> 
       </video>
@@ -158,8 +150,9 @@
 
     <div id="scene6" style="display:none">
         <div>
-        <img src="assets/newspaper.png"/>
-        <span id="scene6Label"> You broke 0 walls and save thousands of people</span>
+            <img src="assets/newspaper.png"/>
+            <span id="scene6Label"> You broke 0 walls and save thousands of people</span>
+            <div id="addGifHere"></div>
         </div>
         <button id= "scene6Button">
             Start a new game
@@ -172,8 +165,9 @@
 	<script  src="js/OrbitControls.js"></script>
     <script  src="js/Detector.js"></script>
 	<script  src="js/stats.min.js"></script>
-    <script src="game.js"></script>
     <script src='js/gifshot.min.js'></script>
-    <script src="js/capture.js"></script>
+    <script src="game.js"></script>
+
+
     </body>
 </html>

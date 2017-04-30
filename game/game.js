@@ -101,6 +101,7 @@ function goToNextScene(scene){
         }     
     }else if(currentScene === 5){
         startNewGame();
+        makeGif(); 
     }else if(currentScene === 6){
         var message = endGameMessage.replace("<number>", wallsBroken);
         var labelElement = document.getElementById("scene"+currentScene+"Label");
@@ -355,7 +356,7 @@ function animate() {
 function startNewGame(){
     countdown = 30;
     wallsBroken = 0;
-    
+    document.getElementById("addGifHere").innerHTML == "";
     createObjects();
 }
 
@@ -479,6 +480,33 @@ function getRandomPositionBasedOnWall(wall){
         getRandomArbitrary(lastBrick.y, firstBrick.y), 
         getRandomArbitrary(lastBrick.z, firstBrick.z))
     return position;
+}
+
+function makeGif(){
+  gifshot.createGIF({
+    'interval': 1,
+    // Desired width of the image
+    'gifWidth': 320,
+    // Desired height of the image
+    'gifHeight': 240,
+    'keepCameraOn': false,
+    'numFrames': 15,
+    'completeCallback': function() {
+        gifshot.stopVideoStreaming();
+        console.log("finished gif");
+    },
+
+  }, function(obj) {
+    if(!obj.error) {
+      var image = obj.image,
+      animatedImage = document.createElement('img');
+      animatedImage.src = image;
+      document.body.appendChild(animatedImage);
+      var here = document.getElementById('addGifHere');
+      here.appendChild(animatedImage);
+    }
+  });
+
 }
 
 document.getElementById("player1").addEventListener("click", function(){
